@@ -1,7 +1,6 @@
 from time import sleep
 from json import dumps
 from kafka import KafkaProducer
-import time
 import re
 
 
@@ -13,7 +12,9 @@ def to_dict(line):
 def stream_file_lines(filename, kafka_producer):
     for i in range(1, 10000):
         kafka_producer.send('topic_test', key="dummykey", value=to_dict("dummyvalue"))
-        print(i)
+        print(f"Sent {i}th dummy value to topic_test")
+
+        # This adjusts the rate at which the data is sent. Use a slower rate for testing your code.
         sleep(1)
 
 # We have already setup a producer for you
@@ -23,4 +24,5 @@ producer = KafkaProducer(
     key_serializer=lambda x: x.encode('utf-8')
 )
 
-stream_file_lines(".\\archive\\short.access.log", producer)
+# Top level call to stream the data to kafka topic. Provide the path to the data. Use a smaller data file for testing.
+stream_file_lines("path/to/data", producer)
