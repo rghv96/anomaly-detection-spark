@@ -12,7 +12,7 @@ def to_dict(line):
 def stream_file_lines(filename, kafka_producer):
     for i in range(1, 10000):
         kafka_producer.send('topic_test', key="dummykey", value=to_dict("dummyvalue"))
-        print(f"Sent {i}th dummy value to topic_test")
+        print(f"Sent {i} dummy value(s) to topic_test")
 
         # This adjusts the rate at which the data is sent. Use a slower rate for testing your code.
         sleep(1)
